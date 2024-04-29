@@ -4,32 +4,48 @@ import FormItem from "./components/FormItem";
 import Search from "./components/Search";
 import Table from "./components/Table";
 import transactions from "./data/transactions";
+import { useState } from "react";
 
 function App() {
+  const [inputSearch, setInputSearch] = useState("");
+  const [transactionsArray, setTransactionsArray] = useState(transactions);
+  const [formData, setFormData] = useState({
+    date: new Date(),
+    description: "",
+    category: "",
+    amount: "",
+  });
+
+  function handleSearch(e) {
+    setInputSearch(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    setTransactionsArray([...transactionsArray, formData]);
+  }
+
+  //transactions = transactionsArray;
+
+  const filteredTransactions = transactionsArray.filter((record) =>
+    record.description.toLowerCase().includes(inputSearch.toLowerCase()),
+  );
+
   return (
     <div className="App container">
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
       <header className="row bg-info">
         <h3>The Royal Bank of Flatiron</h3>
       </header>
-      <Search transactions={transactions} />
+      <Search onHandleSearch={handleSearch} inputSearch={inputSearch} />
       <div className="row border p-3">
-        <FormItem />
+        <FormItem
+          formData={formData}
+          setFormData={setFormData}
+          handleSubmit={handleSubmit}
+        />
       </div>
-      <Table transactions={transactions} />
+      <Table transactions={filteredTransactions} />
     </div>
   );
 }
