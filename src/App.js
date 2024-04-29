@@ -31,18 +31,20 @@ function App() {
     setTransactionsArray([...transactionsArray, formData]);
   }
 
-  let transactionsa = transactionsArray.filter((transaction) => {
+  //filters by category
+  let transactionsCategory = transactionsArray.filter((transaction) => {
     if (selectedCategory === "All") return true;
     return transaction.category.toLowerCase() === selectedCategory;
   });
 
-  let filteredTransactions = transactionsa.filter((record) =>
+  //search filter by description
+  let filteredTransactions = transactionsCategory.filter((record) =>
     record.description.toLowerCase().includes(inputSearch.toLowerCase()),
   );
 
   return (
     <div className="App container">
-      <header className="row bg-info">
+      <header className="row bg-dark text-white">
         <h3>The Royal Bank of Flatiron</h3>
       </header>
       <Search

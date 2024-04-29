@@ -12,7 +12,7 @@ function Search({ onHandleSearch, inputSearch, onCategoryChange }) {
         onChange={onHandleSearch}
       />
 
-      <select name="filter" onChange={onCategoryChange}>
+      <select name="filter" onChange={onCategoryChange} className="my-2 w-50">
         <option value="All">Filter by category</option>
         <option value="income">Income</option>
         <option value="food">Food</option>
