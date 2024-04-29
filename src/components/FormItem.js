@@ -48,7 +48,7 @@ function FormItem({ formData, setFormData, handleSubmit }) {
 
       <div className="col-3">
         <input
-          type="text"
+          type="number"
           name="amount"
           placeholder="Amount"
           className="w-100"

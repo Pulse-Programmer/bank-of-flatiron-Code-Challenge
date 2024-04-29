@@ -1,4 +1,4 @@
-function Search({ onHandleSearch, inputSearch }) {
+function Search({ onHandleSearch, inputSearch, onCategoryChange }) {
   return (
     <div className="searchFilter row my-2">
       <input
@@ -11,6 +11,14 @@ function Search({ onHandleSearch, inputSearch }) {
         value={inputSearch}
         onChange={onHandleSearch}
       />
+
+      <select name="filter" onChange={onCategoryChange}>
+        <option value="All">Filter by category</option>
+        <option value="income">Income</option>
+        <option value="food">Food</option>
+        <option value="fashion">Fashion</option>
+        <option value="entertainment">Entertainment</option>
+      </select>
     </div>
   );
 }

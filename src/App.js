@@ -10,11 +10,16 @@ function App() {
   const [inputSearch, setInputSearch] = useState("");
   const [transactionsArray, setTransactionsArray] = useState(transactions);
   const [formData, setFormData] = useState({
-    date: new Date(),
+    date: "",
     description: "",
-    category: "",
-    amount: "",
+    category: "Food",
+    amount: 10,
   });
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  function handleCategoryChange(e) {
+    setSelectedCategory(e.target.value);
+  }
 
   function handleSearch(e) {
     setInputSearch(e.target.value);
@@ -26,9 +31,12 @@ function App() {
     setTransactionsArray([...transactionsArray, formData]);
   }
 
-  //transactions = transactionsArray;
+  let transactionsa = transactionsArray.filter((transaction) => {
+    if (selectedCategory === "All") return true;
+    return transaction.category.toLowerCase() === selectedCategory;
+  });
 
-  const filteredTransactions = transactionsArray.filter((record) =>
+  let filteredTransactions = transactionsa.filter((record) =>
     record.description.toLowerCase().includes(inputSearch.toLowerCase()),
   );
 
@@ -37,7 +45,11 @@ function App() {
       <header className="row bg-info">
         <h3>The Royal Bank of Flatiron</h3>
       </header>
-      <Search onHandleSearch={handleSearch} inputSearch={inputSearch} />
+      <Search
+        onHandleSearch={handleSearch}
+        inputSearch={inputSearch}
+        onCategoryChange={handleCategoryChange}
+      />
       <div className="row border p-3">
         <FormItem
           formData={formData}
